@@ -1,0 +1,161 @@
+GIT COMMANDS USED - Git & GitHub Workflow Assignment
+Author : Perla Krishna Sathwik
+Email  : 2024eb02586@online.bits-pilani.ac.in
+Repo   : https://github.com/sathwikperla/git-workflow-assignment
+==========================================================================
+
+STEP 1 - LOCAL REPOSITORY SETUP
+--------------------------------------------------------------------------
+mkdir git-workflow-assignment
+    Creates the project directory on the local machine.
+
+cd git-workflow-assignment
+    Moves into the project directory so that all later commands run inside it.
+
+git init -b main
+    Initializes a new, empty local Git repository (creates the .git folder)
+    with "main" as the name of the default branch.
+
+git config user.name "Perla Krishna Sathwik"
+    Sets the author name for commits in this repository only (local config).
+
+git config user.email "2024eb02586@online.bits-pilani.ac.in"
+    Sets the author email for commits in this repository only (local config).
+
+git config --local --get-regexp "^user\."
+    Displays the local user name and email to verify the identity is correct.
+
+git status
+    Shows the state of the working directory and staging area (untracked,
+    modified and staged files).
+
+
+STEP 2 - GIT WORKFLOW EXECUTION
+--------------------------------------------------------------------------
+git add index.html about.html
+    Stages the two HTML files so they are included in the next commit.
+
+git commit -m "Initial commit: add index.html and about.html"
+    Records the staged files as the first snapshot (initial commit) in history.
+
+git log --format='%h | author: %an <%ae> | committer: %cn <%ce>'
+    Prints each commit with its author and committer to confirm the identity.
+
+git diff
+    Shows the line-by-line changes in the working directory that are not yet
+    staged.
+
+git add index.html
+    Stages the modified index.html for the second commit.
+
+git commit -m "Update index.html with project description"
+    Creates the second commit containing the change to index.html.
+
+git branch feature
+    Creates a new branch named "feature" pointing at the current commit.
+
+git checkout feature
+    Switches the working directory to the "feature" branch.
+
+git branch
+    Lists local branches; the asterisk (*) marks the current branch.
+
+git add about.html
+    Stages the change made to about.html on the feature branch.
+
+git commit -m "Add author details to about.html (feature branch)"
+    Commits the change on the feature branch only (main is unaffected).
+
+git checkout main
+    Switches back to the main branch.
+
+git merge --no-ff feature -m "Merge branch 'feature' into main"
+    Merges the feature branch into main; --no-ff always creates a merge commit
+    so the branch and merge remain visible in the history graph.
+
+git log --oneline --graph --all
+    Shows the commit history of all branches, one line per commit, with an
+    ASCII graph of branching and merging.
+
+
+STEP 3 - .GITIGNORE
+--------------------------------------------------------------------------
+cat .gitignore
+    Displays the ignore rules: "*.log" (all log files) and "temp/" (directory).
+
+mkdir temp
+    Creates the temp directory used to test the ignore rule.
+
+echo "debug output" > debug.log
+    Creates a sample .log file used to test the ignore rule.
+
+echo "scratch data" > temp/notes.txt
+    Creates a sample file inside temp/ used to test the ignore rule.
+
+git check-ignore -v debug.log temp/notes.txt
+    Confirms that each file is ignored and prints the .gitignore rule
+    (file:line:pattern) that matches it.
+
+git add .gitignore
+    Stages the .gitignore file.
+
+git commit -m "Add .gitignore to ignore log files and temp directory"
+    Commits the .gitignore so the ignore rules are shared with the repository.
+
+git status --ignored
+    Shows the repository status including the files that are being ignored.
+
+
+STEP 4 - UNDO OPERATION
+--------------------------------------------------------------------------
+echo "<p>Temporary contact page</p>" > contact.html
+    Creates a new file that will be committed and then undone.
+
+git add contact.html
+    Stages the new file.
+
+git commit -m "Add contact.html (to be undone)"
+    Creates the extra commit that will be undone.
+
+git log --oneline
+    Shows the history in compact form (used before and after the undo).
+
+git reset --soft HEAD~1
+    Undoes the last commit by moving the branch pointer back one commit;
+    the changes from that commit are kept in the staging area.
+
+git restore --staged contact.html
+    Unstages contact.html (removes it from the staging area, keeps the file).
+
+rm contact.html
+    Deletes the leftover file so the working tree is clean again.
+
+git reflog -3
+    Shows the last three movements of HEAD, proving the undone commit can
+    still be recovered if needed.
+
+
+STEP 5 - GITHUB INTEGRATION
+--------------------------------------------------------------------------
+git add git_commands.txt
+    Stages this documentation file.
+
+git commit -m "Add git_commands.txt documenting all Git commands used"
+    Commits the command documentation to the repository.
+
+git remote add origin https://github.com/sathwikperla/git-workflow-assignment.git
+    Links the local repository to the public GitHub repository under the
+    name "origin".
+
+git remote -v
+    Lists the configured remotes and their fetch/push URLs to verify the link.
+
+git push -u origin main
+    Uploads the main branch and its commits to GitHub and sets origin/main as
+    the upstream branch for future push/pull.
+
+git push -u origin feature
+    Uploads the feature branch to GitHub and sets its upstream branch.
+
+git branch -a
+    Lists all local and remote-tracking branches to confirm both were pushed.
