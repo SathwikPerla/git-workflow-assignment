@@ -135,6 +135,28 @@ git reflog -3
     still be recovered if needed.
 
 
+STEP 4 (PART B) - UNDO USING GIT REVERT (VISIBLE IN GITHUB HISTORY)
+--------------------------------------------------------------------------
+git add index.html
+    Stages the footer line added to index.html.
+
+git commit -m "Add footer to index.html (to be reverted)"
+    Creates the commit that will be undone with git revert.
+
+git revert HEAD --no-edit
+    Undoes the last commit by creating a new commit that applies the exact
+    opposite change; history is kept, so the undo is visible on GitHub.
+
+git log --oneline -4
+    Shows the original commit and the new "Revert" commit in the history.
+
+git show --stat HEAD
+    Shows the details of the revert commit and the file it changed.
+
+cat index.html
+    Displays index.html to confirm the footer line has been removed.
+
+
 STEP 5 - GITHUB INTEGRATION
 --------------------------------------------------------------------------
 git add git_commands.txt
@@ -159,3 +181,7 @@ git push -u origin feature
 
 git branch -a
     Lists all local and remote-tracking branches to confirm both were pushed.
+
+git push origin main
+    Uploads the new commits (git revert demo and updated git_commands.txt)
+    to the main branch on GitHub.
